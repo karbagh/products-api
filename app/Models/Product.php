@@ -2,21 +2,16 @@
 
 namespace App\Models;
 
-use Encore\Admin\Traits\DefaultDatetimeFormat;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Translations\HasTranslation;
 use App\Interfaces\Models\TranslationInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection as SupportCollection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Encore\Admin\Traits\DefaultDatetimeFormat;
 use Illuminate\Support\Str;
 
 class Product extends Model implements TranslationInterface

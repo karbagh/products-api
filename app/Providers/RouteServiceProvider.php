@@ -29,12 +29,13 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware(['api', 'api.call.log', 'api.lang', 'sanctum'])
+            Route::middleware(['api', 'api.lang', 'sanctum'])
                 ->prefix('v1')
                 ->group(function () {
                     require_once base_path('routes/api/v1/auth.php');
                     require_once base_path('routes/api/v1/carts.php');
                     require_once base_path('routes/api/v1/products.php');
+                    require_once base_path('routes/api/v1/sizes.php');
                     require_once base_path('routes/api/v1/users.php');
                 });
         });

@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\v1\Auth;
 
-use App\Dtoes\Auth\ResetPasswordRequestDto;
 use App\Dtoes\Auth\UserRegisterRequestDto;
-use App\Http\Requests\Auth\ResetPasswordEmailRequest;
-use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\VerifyUserRequest;
+use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
 use App\Dtoes\Auth\LoginRequestDto;
 use App\Repositories\User\UserRepository;
@@ -14,7 +12,6 @@ use App\Http\Controllers\v1\ApiController;
 use App\Http\Requests\Auth\UserRegisterRequest;
 use App\Http\Requests\Auth\Login\UserLoginRequest;
 use Illuminate\Support\Facades\Auth;
-use OpenApi\Annotations as OA;
 
 /**
  * @OA\Tag(
@@ -157,12 +154,9 @@ final class AuthController extends ApiController
         $dto = $service->register(new UserRegisterRequestDto(
             $request->fullName,
             $request->email,
-            $request->phone,
             $request->password,
             $request->ip(),
         ));
-
-        event(new UserRegisteredEvent($dto->getUser()));
 
         return response()->success($dto->toArray(), trans('auth.success'));
     }
@@ -206,25 +200,9 @@ final class AuthController extends ApiController
      * @param AuthService $service
      * @return JsonResponse
      */
-    public function verify(VerifyUserRequest $request, AuthService $service)
+    public function verify(VerifyUserRequest $request, AuthService $service): JsonResponse
     {
         $service->verify(Auth::user(), $request->token);
         return response()->successMessage(trans('auth.verify.success'));
-    }
-
-    public function resetRequest(ResetPasswordEmailRequest $request, AuthService $service): JsonResponse
-    {
-        $service->sendResetEmail($request->email);
-
-        return response()->successMessage('user.reset.message.success');
-    }
-
-    public function resetPassword(ResetPasswordRequest $request, AuthService $service): JsonResponse
-    {
-        $user = $service->resetPassword(new ResetPasswordRequestDto($request->token, $request->password));
-
-        return response()->success([
-            'token' => $user->createToken($request->ip())->plainTextToken,
-        ], 'user.reset.message.success');
     }
 }

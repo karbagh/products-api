@@ -2,20 +2,13 @@
 
 namespace App\Services\Auth;
 
+use App\Models\User;
 use App\Dtoes\Auth\LoginRequestDto;
-use App\Dtoes\Auth\ResetPasswordRequestDto;
-use App\Dtoes\Auth\Subscription\CreateSubscriptionRequestDto;
+use App\Repositories\Auth\AuthRepository;
 use App\Dtoes\Auth\UserRegisterRequestDto;
 use App\Dtoes\Auth\UserRegisterResponseDto;
-use App\Dtoes\Product\Favorites\CreateFavoritesProductsRequestDto;
-use App\Http\Resources\Users\UserResource;
 use App\Interfaces\Auth\AuthenticableInterface;
-use App\Mail\Auth\ResetPassword;
-use App\Models\User;
-use App\Repositories\Auth\AuthRepository;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
+use App\Dtoes\Auth\Subscription\CreateSubscriptionRequestDto;
 
 class AuthService
 {
@@ -55,19 +48,5 @@ class AuthService
     public function verify(User $user, string $token): bool
     {
         return $this->repository->verify($user, $token);
-    }
-
-    public function sendResetEmail(string $email): void
-    {
-        $token = Str::random(60);
-
-        $this->repository->createPasswordReset($token, $email);
-
-        Mail::to($email)->send(new ResetPassword($token));
-    }
-
-    public function resetPassword(ResetPasswordRequestDto $dto): User
-    {
-        return $this->repository->resetPassword($dto->getToken(), $dto->getPassword());
     }
 }

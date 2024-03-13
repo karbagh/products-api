@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Products;
 
 use App\Http\Resources\Products\Images\ImageResource;
+use App\Http\Resources\Sizes\SizeResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use NumberFormatter;
@@ -57,6 +58,7 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'price' => numfmt_format_currency($fmt, round($this->price, 3), "AMD"),
+            'sizes' => SizeResource::collection($this->whenLoaded('sizes')),
             'images' => [
                 'main' => ImageResource::make($this->whenLoaded('mainImage') ?? (object)[
                     'src' => 'default/product.svg',

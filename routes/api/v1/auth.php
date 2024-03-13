@@ -30,8 +30,4 @@ Route::prefix('auth')->name('auth.')->group(function () {
         Route::patch('retry', [AuthController::class, 'retryVerify'])->name('retry');
         Route::post('verify', [AuthController::class, 'verify'])->name('verify');
     });
-    Route::prefix('reset')->name('reset.')->group(function () {
-        Route::post('request', [AuthController::class, 'resetRequest'])->name('request');
-        Route::post('password', [AuthController::class, 'resetPassword'])->name('password');
-    });
 });

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>{{config('l5-swagger.documentations.'.$documentation.'.api.title')}}</title>
     <link rel="stylesheet" type="text/css" href="{{ l5_swagger_asset($documentation, 'swagger-ui.css') }}">
-    <link rel="icon" type="image/png" href="{{ url('doc/shinmag.ico') }}" sizes="16x16"/>
-    <link rel="icon" type="image/png" href="{{ url('doc/shinmag.ico') }}" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="{{ url('doc/favicon.ico') }}" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="{{ url('doc/favicon.ico') }}" sizes="32x32"/>
     <style>
     html
     {

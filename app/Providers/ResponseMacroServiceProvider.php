@@ -4,13 +4,13 @@ namespace App\Providers;
 
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Support\Facades\Response;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Symfony\Component\HttpFoundation\Response as ResponseStatus;
 
 class ResponseMacroServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        Response::macro('successMessage', function (string $message, $status = ResponseAlias::HTTP_OK) {
+        Response::macro('successMessage', function (string $message, $status = ResponseStatus::HTTP_OK) {
             return Response::json([
                 'errors'  => false,
                 'message' => $message,
@@ -25,7 +25,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
             ]);
         });
 
-        Response::macro('error', function (string $message, $status = ResponseAlias::HTTP_BAD_REQUEST) {
+        Response::macro('error', function (string $message, $status = ResponseStatus::HTTP_BAD_REQUEST) {
             return Response::json([
                 'errors'  => true,
                 'message' => $message,

@@ -7,7 +7,6 @@ use App\Dtoes\Users\Settings\UpdateUsersSettingsRequestDto;
 use App\Exceptions\Http\ValidationHttpException;
 use App\Models\User;
 use App\Repositories\User\UserRepository;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,7 +24,6 @@ class UsersService
             $dto->getFirstName(),
             $dto->getLastName(),
             $dto->getEmail(),
-            $dto->getPhone(),
             Auth::user()
         );
     }

@@ -9,7 +9,6 @@ class UserRegisterRequestDto extends Dto
     public function __construct(
         private readonly string $fullName,
         private readonly ?string $email,
-        private readonly string $phone,
         private readonly string $password,
         private readonly string $recognizer,
     )
@@ -48,14 +47,6 @@ class UserRegisterRequestDto extends Dto
     /**
      * @return string
      */
-    public function getPhone(): string
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -77,7 +68,6 @@ class UserRegisterRequestDto extends Dto
         return [
             'fullName' => $this->getFullName(),
             'email' => $this->getEmail(),
-            'phone' => $this->getPhone(),
             'password' => $this->getPassword(),
         ];
     }

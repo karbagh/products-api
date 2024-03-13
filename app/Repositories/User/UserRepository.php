@@ -13,7 +13,7 @@ class UserRepository extends AbstractRepository implements AuthenticableInterfac
 
     public function findAuthenticable(string $username): User
     {
-        $user = User::query()->where('email', $username)->orWhere('phone', $username);
+        $user = User::query()->where('email', $username);
         if ($user->doesntExist()) {
             throw new ValidationHttpException(trans('validation.username.exists.false'));
         }
@@ -33,14 +33,13 @@ class UserRepository extends AbstractRepository implements AuthenticableInterfac
         return $user;
     }
 
-    public function update(?string $firstName, ?string $lastName, ?string $email, ?string $phone, User $user): User
+    public function update(?string $firstName, ?string $lastName, ?string $email, User $user): User
     {
         !$email ?: $user->unverify();
         $user->update([
             'first_name' => $firstName ?? $user->first_name,
             'last_name' => $lastName ?? $user->last_name,
             'email' => $email ?? $user->email,
-            'phone' => $phone ?? $user->phone,
         ]);
 
         return $user;

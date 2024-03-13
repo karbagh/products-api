@@ -6,9 +6,8 @@ use App\Rules\Cart\CountNumberAndTypeRule;
 use App\Rules\Cart\NotAvailableCountRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddToCartRequest extends FormRequest
+final class AddToCartRequest extends FormRequest
 {
-
     /**
      * @OA\Schema(
      *     title="Add To Cart",
@@ -65,7 +64,7 @@ class AddToCartRequest extends FormRequest
      *      )
      * )
      *
-     * Get the validation rules that apply to the request.
+     * Get the validation messages that apply to the request.
      *
      * @return array<string, mixed>
      */
